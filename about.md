@@ -3,4 +3,4 @@ layout: page
 title: About me 
 ---
 
-This is a static page. It could be an 'about page' if you'd like.
+Hi! My name is Florian Lüscher and I am a Software Developer living in Switzerland.
