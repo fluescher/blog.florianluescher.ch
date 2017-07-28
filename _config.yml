@@ -3,10 +3,11 @@ description: Blog
 meta_description: ""
 
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 logo: false
 paginate: 15
 baseurl: /
+permalink: /:year/:month/:day/:title.html
 domain_name: 'http://blog.florianluescher.ch'
 google_analytics: 'UA-XXXXXXXX-X'
 gems: [jekyll-paginate]
@@ -14,3 +15,4 @@ gems: [jekyll-paginate]
 # Details for the RSS feed generator
 url:            'blog.florianluescher.ch'
 author:         'Florian Lüscher'
+bio:            'Software Developer from Switzerland. Machine Learning Trainer. Robo Challenge Organizer. Team Player.'

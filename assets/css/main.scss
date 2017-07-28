@@ -8,6 +8,33 @@
 	display:inline;
 }
 
+.post .post-header {
+	margin-bottom: 20px;
+}
+
+figure.highlight {
+	font-size: 1.3rem;
+	line-height: 1.25em;
+}
+
+.social-media {
+	width: 100%;
+	text-align: center;
+}
+
+.social-media-icon {
+	height: 64px;
+	width: 64px;
+	display: inline-block;	
+}
+
+.social-media-icon img {
+	height: 64px !important;
+	width: 64px !important;
+	margin: 0 !important;
+}
+
+
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
 	"syntax"
