@@ -9,7 +9,7 @@ paginate: 15
 baseurl: /
 permalink: /:year/:month/:day/:title.html
 domain_name: 'http://blog.florianluescher.ch'
-google_analytics: 'UA-XXXXXXXX-X'
+google_analytics: 'UA-103584624-1'
 gems: [jekyll-paginate]
 
 # Details for the RSS feed generator
