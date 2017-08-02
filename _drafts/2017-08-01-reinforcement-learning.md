@@ -10,7 +10,7 @@ Reinforcement Learning is a hot topic right now. Especially after the successes 
 
 ### What is Reinforcement Learning?
 
-You probably already know that there are different possiblities to train a Machine Learning model. You might have heard of linear models like *linear regression* or other algorithms like *k-means* clustering. These algorithms are usually divided into two categories: supervised and unsupervised learning. So where does reinforcement earning fit into? As it turns out, reinforcement learning doen't quite fit into any of the two categories and is therefore often considered a third one all by itself. 
+You probably already know that there are different possiblities to train a Machine Learning model. You might have heard of linear models like *linear regression* or other algorithms like *k-means* clustering. These algorithms are usually divided into two categories: supervised and unsupervised learning. So where does reinforcement learning fit in? As it turns out, reinforcement learning doesn't quite fit into any of the two categories and is therefore often considered a third one all by itself. 
 
 When we use supervised learning to train a model, we already have a set of examples for which we know the expected answers. When using unsupervised learning, we only have the data, but don't know the "labels" of this data. So what does reinforcement learning do differently? In Reinforcement Learning, an agent learns by interacting with it's environment and triyng to maximize some sort of long-term reward. 
 
@@ -22,20 +22,20 @@ So while we need data and labels in the case of supervised and unsupervised lear
 
 When training a model using reinforcement learning, there are four components involved:
 
-A **Policy** is the core of a reinforcement learning algorithm. It is a function mapping a given state to the next action to perform. While learning the agent changes his policy in order to maximise the reward.
+* A **Policy** is the core of a reinforcement learning algorithm. It is a function mapping a given state to the next action to perform. While learning the agent changes his policy in order to maximise the reward.
 
-The **Reward Function** defines the reward a agent can expect at given state/timestep. Since this is the function the agent tries to maximise, it is unmodifiable during training.
+* The **Reward Function** defines the reward a agent can expect at given a state/timestep. Since this is the function the agent tries to maximise, it is unmodifiable during training.
 
-A **Value Function** is an estimation about how much reward an agent can expect beginning from a specific state. It is different from the reward function in that the reward is definitive and immediate, whereas the value is predicted and therefore unsure. 
+* A **Value Function** is an estimation about how much reward an agent can expect when entering specific state. It is different from the reward function in that the reward is definitive and immediate, whereas the value is predicted and therefore unsure. 
 
-A **Model** of the environment can help the agent in planning it's future moves. A model might be made available to the agent because it was provided by the developer or a model might be learned during training.
+* A **Model** of the environment can help the agent in planning it's future moves. A model might be made available to the agent because it was provided by the developer or a model might be learned during training.
 
 This for sure sounds confusing. So probably it's best to just jump to an example of this.
 
 
 ### Example: Tic-Tac-Toe
 
-Since reinforcement learning components map good to games we try to explore the concept by writing an AI-player for the simple game of Tic-Tac-Toe. The game is extremely simple: Two players (X and O) play one after another by marking a field. As soon as one player has three field in a row, column or diagonally, he wins. If all fields were marked, the game is a draw.
+Since reinforcement learning components map good to games we try to explore the concept by writing an AI-player for the simple game of Tic-Tac-Toe. The game is extremely simple: Two players (X and O) play one after another by marking a field. As soon as one player has three fields in a row, column or diagonally, he wins. If all fields were marked, the game is a draw.
 
 ![tic-tac-toe](/assets/posts/2017-08-01-reinforcement/tic-tac-toe.png){:class="img"}
 
@@ -70,7 +70,7 @@ class Game:
     def is_finished(self): pass
         
     def valid_moves(self): pass
-        # returns list of field wich are unoccupied
+        # returns list of fields which are unoccupied
     def make_move(self, field, player): pass
         # marks field as occupied by player
     def get_winner(self): pass
@@ -150,7 +150,7 @@ Our policy now somehow needs to decide what to do next. Because we implemented o
 
 ![value-table](/assets/posts/2017-08-01-reinforcement/value-table.png){:class="img-small"}
 
-Given that value function, our policy could choose the one action leading to the state with the highest possible reward. In this case *a1* would lead to a state with a higher value than *a2*. The following Python implementation shows a policy backed by the value table *values*. 
+Given that value function, our policy could choose the action leading to the state with the highest possible reward. In this case *a1* would lead to a state with a higher value than *a2*. The following Python implementation shows a policy backed by the value table *values*. 
 
 {% highlight python %}
 class ValuePolicy:
@@ -164,10 +164,7 @@ class ValuePolicy:
         moves = game.valid_moves()
         for move in moves:
             next = game.make_move(move, AGENT)
-            if str(next) in self.values:
-                move_values[move] = self.values[str(next)]
-            else:
-                move_values[move] = 0
+            move_values[move] = self.get_state_value(next)
 
         return max(move_values, key=move_values.get)
 
@@ -264,7 +261,7 @@ print(policy.values)
 # {'[1, 0, -1, -1, 0, 0, 0, 1, 0]': 0.5070510416675937, '[1, -1, -1, 1, 1, -1, 0, 1, 0]': 0.45, ...
 {% endhighlight %}
 
-After training you can see that we trained our tabular value function so that some states have a better value than other. And if we put that all together we can first train our model and after that run a couple of games against our *random_policy*:
+After training you can see that we trained our tabular value function so that some states have a better value than others. And if we put that all together we can first train our model and after that run a couple of games against our *random_policy*:
 
 {% highlight python %}
 policy = ValuePolicy()
@@ -277,15 +274,15 @@ print("Games won: %s" % games_won)
 print("Draw: %s" % draw)
 
 # Output:
-Games won: 581
-Draw: 53
+# Games won: 581
+# Draw: 53
 {% endhighlight %}
 
 Hmm. That is not so good. Why is that? We achieved a similar score without any values in the table!
 
 ##### Exploration vs Exploitation
 
-The policy we implemented is called a *greedy* policy, because it always chooses the action leading to the highest reward. Can you imagine what happens during training? If we always follow the best one, we don't get to see all the other possibilities. But these unknown states might lead to the higher reward. So we somehow need to get our algorithm explore different branches. We achieve this by sometimes select a action during training:
+The policy we implemented is called a *greedy* policy, because it always chooses the action leading to the highest reward. Can you imagine what happens during training? If we always follow the best one, we don't get to see all the other possibilities. But these unknown states might lead to the higher reward. So we somehow need to get our algorithm explore different branches. We achieve this by sometimes select a random action during training:
 
 {% highlight python %}
 def train(policy, opponent_policy, training_games=1000):
@@ -337,10 +334,16 @@ This balance between exploiting and exploring is a common difficulty in Reinforc
 
 ### Conclusion
 
-We saw a simple temporal-difference learning algorithm in action. Reinforcement Learning can do much more than just that. Our policy and value function were the most basic ones. World-class implementations like AlphaGo [use neural networks][AlphaGoPaper] to approximate the ideal value and policy functions and combine them with a classical algorithms like [Monte Carlo Tree Search ][MCTS]
+We saw a simple temporal-difference learning algorithm in action. Reinforcement Learning can do much more than just that. Our policy and value function were the most basic ones. World-class implementations like AlphaGo [use neural networks][AlphaGoPaper] to approximate the ideal value and policy functions and combine them with a classical algorithms like [Monte Carlo Tree Search ][MCTS]. 
+
+If you are interested in the topic, I strongly recommend to have a look at the [book][Sutton] by Richard Sutton and Andrew Barto. If you want to experiment with the code used in this article you find it on [Github][Source].
+
+I'd really like your feedback, so please don't hesitate to reach out to me on [Twitter][fluescher]. Thanks for reading!
 
 
 [AlphaGo]:      https://deepmind.com/research/alphago/
 [AlphaGoPaper]: https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf
 [Sutton]:       http://incompleteideas.net/sutton/book/the-book-2nd.html
 [MCTS]:         https://en.wikipedia.org/wiki/Monte_Carlo_tree_search
+[fluescher]:    https://twitter.com/fluescher
+[Source]:       https://github.com/fluescher/blog.florianluescher.ch
