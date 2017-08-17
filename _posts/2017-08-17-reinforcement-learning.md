@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Reinforcement Learning by Example
-date:   2017-07-01 13:17:00
+date:   2017-08-17 09:05:00+02
 categories:
     - Machine Learning
 ---
