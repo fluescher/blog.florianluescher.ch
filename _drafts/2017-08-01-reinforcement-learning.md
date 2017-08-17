@@ -6,7 +6,7 @@ categories:
     - Machine Learning
 ---
 
-Reinforcement Learning is a hot topic right now. Especially after the successes of [AlphaGo][AlphaGo] and it's extensive media coverage. But reinforcement learning is capable of much more than playing computer games, even though the [videos](https://youtu.be/L4KBBAwF_bE) are awesome to watch. German carmanufacturers are also investing heavily into resarch of the field in order to speed up the development of software powering self driving cars.
+Reinforcement Learning is a hot topic right now. Especially after the successes of [AlphaGo][AlphaGo] and it's extensive media coverage. But reinforcement learning is capable of much more than playing computer games, even though the [videos](https://youtu.be/L4KBBAwF_bE) are awesome to watch. Different companies are investing heavily into resarch of the field.
 
 ### What is Reinforcement Learning?
 
@@ -346,4 +346,4 @@ I'd really like your feedback, so please don't hesitate to reach out to me on [T
 [Sutton]:       http://incompleteideas.net/sutton/book/the-book-2nd.html
 [MCTS]:         https://en.wikipedia.org/wiki/Monte_Carlo_tree_search
 [fluescher]:    https://twitter.com/fluescher
-[Source]:       https://github.com/fluescher/blog.florianluescher.ch
+[Source]:       https://github.com/fluescher/blog.florianluescher.ch/blob/master/assets/posts/2017-08-01-reinforcement/learning.py
