@@ -6,7 +6,7 @@ categories:
     - Machine Learning
 ---
 
-Reinforcement Learning is a hot topic right now. Especially after the successes of [AlphaGo][AlphaGo] and it's extensive media coverage. But reinforcement learning is capable of much more than playing computer games, even though the [videos](https://youtu.be/L4KBBAwF_bE) are awesome to watch. Different companies are investing heavily into resarch of the field.
+Reinforcement Learning is a hot topic right now. Especially after the successes of [AlphaGo][AlphaGo] and it's extensive media coverage. But reinforcement learning is capable of much more than playing computer games, even though the [videos](https://youtu.be/L4KBBAwF_bE) are awesome to watch. Different companies are investing heavily into research of the field.
 
 ### What is Reinforcement Learning?
 
